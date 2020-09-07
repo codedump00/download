@@ -1,5 +1,5 @@
 //@ts-check
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Line } from "rc-progress";
 
 const Progress = ({ percent, setPercent, stopped, setStopped }) => {
