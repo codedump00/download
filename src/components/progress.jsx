@@ -20,7 +20,7 @@ const Progress = ({ percent, setPercent, stopped, setStopped }) => {
       clearTimeout(interval);
       setStopped(false);
     };
-  }, [percent]);
+  }, [percent, setPercent, setStopped]);
 
   return (
     <div className="progress">
