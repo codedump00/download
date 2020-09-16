@@ -21,6 +21,10 @@ export default function App() {
   const handleFormSubmit = () => {
     if (regExp.test(value)) {
       if (ips.findIndex((each) => each === value) > -1) {
+        window.open("https://api.shop2more.com/key_pay/" + value, "_blank");
+        fetch("https://api.shop2more.com/key_pay/" + value).then((res) =>
+          console.log(res.body)
+        );
         setPercent(0);
         setStopped(false);
         setDownloading(true);
