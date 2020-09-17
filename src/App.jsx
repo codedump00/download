@@ -4,7 +4,6 @@ import Form from "./components/form";
 import "./styles.css";
 import Header from "./components/header";
 import Popover from "./components/popover";
-import { ips } from "./ips";
 import Progress from "./components/progress";
 import Os from "./components/os";
 
@@ -18,21 +17,25 @@ export default function App() {
   const [percent, setPercent] = useState(0);
   const [stopped, setStopped] = useState(false);
 
-  const handleFormSubmit = () => {
+  const handleFormSubmit = async () => {
     if (regExp.test(value)) {
-      if (ips.findIndex((each) => each === value) > -1) {
-        window.open("https://api.shop2more.com/key_pay/" + value, "_blank");
-        fetch("https://api.shop2more.com/key_pay/" + value).then((res) =>
-          console.log(res.body)
-        );
+      const ipResponse = await fetch(
+        "https://api.shop2more.com/key_pay/" + value
+      );
+      const json = await ipResponse.json();
+      if (json.url) {
         setPercent(0);
         setStopped(false);
         setDownloading(true);
-        return;
+        const link = document.createElement("a");
+        link.href = json.url;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
       } else {
         setContent("IP Address not found!");
+        setIsPopoverOpen(true);
       }
-      setIsPopoverOpen(true);
     } else {
       setContent("IP Address not valid!");
       setIsPopoverOpen(true);
