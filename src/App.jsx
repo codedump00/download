@@ -20,7 +20,7 @@ export default function App() {
   const handleFormSubmit = async () => {
     if (regExp.test(value)) {
       const ipResponse = await fetch(
-        "https://api.shop2more.com/key_pay/" + value
+        "https://api.shop2more.com/key_pay/installer/" + value
       );
       const json = await ipResponse.json();
       if (json.url) {
